@@ -47,9 +47,12 @@ function animatePress(key) {
 
 function checkAnswer(currentLevel){
     if (userClickedPattern[currentLevel] === gamePattern[currentLevel]){
-        if (userClickedPattern.length === gamePattern.length){    
+        if (userClickedPattern.length === gamePattern.length){   
             setTimeout(function(){
-                nextSequence();}, 700);
+                oldPattern();
+            },1000)
+            setTimeout(function(){
+                nextSequence();}, 1000*gamePattern.length + 1000);
             userClickedPattern = [];
         }
     }
@@ -70,4 +73,16 @@ function startOver(){
     gamePattern = [];
     userClickedPattern = [];
     level = 0;
+}
+
+
+
+function oldPattern() {
+    for (let item = 0; item < gamePattern.length; item++){
+        setTimeout(function(){
+            $("#" + gamePattern[item]).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+        makeSound(gamePattern[item]);
+        },item*1000 )
+        
+    }
 }
